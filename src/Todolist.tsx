@@ -31,6 +31,7 @@ function Todolist(props:PropsType) {
                             onChange={changeTaskStatus}
                             />
                             <span>{task.title}</span>
+                            <button>X</button>
                         </li>
                     )
                 })}
