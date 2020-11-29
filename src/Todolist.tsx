@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import {TaskType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
+    changeTaskStatus: (id: string, value: boolean) => void
 }
 
 function Todolist(props:PropsType) {
+
+
     return (
         <div>
             <div>
@@ -19,9 +22,14 @@ function Todolist(props:PropsType) {
             </div>
             <ul>
                 {props.tasks.map( task => {
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
+                        props.changeTaskStatus(task.id, e.currentTarget.checked)
+                    }
                     return (
                         <li key={task.id}>
-                            <input type="checkbox" checked={task.isDone}/>
+                            <input type="checkbox" checked={task.isDone}
+                            onChange={changeTaskStatus}
+                            />
                             <span>{task.title}</span>
                         </li>
                     )
