@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import { v1 } from 'uuid';
 import './App.css';
 import Todolist from './Todolist';
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone:boolean
@@ -19,6 +20,7 @@ function App() {
     return (
         <div className="App">
            <Todolist title={'What to learn'}
+                     tasks={tasks}
            />
         </div>
     );
