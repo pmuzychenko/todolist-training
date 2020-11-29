@@ -9,6 +9,8 @@ export type TaskType = {
     isDone: boolean
 }
 
+export type FilterTaskValues = 'All' | 'Active' | 'Completed'
+
 function App() {
     //add hook useState for rerender UI
     const [tasks, setTasks] = useState<Array<TaskType>>([
@@ -18,6 +20,8 @@ function App() {
         {id: v1(), title: 'REACT', isDone: false},
         {id: v1(), title: 'REDUX', isDone: false}
     ])
+    const [filter, setFilter] = useState<FilterTaskValues>('All')
+    let tasksForTodolist = tasks
 
     const changeTaskStatus = (id: string, newStatus: boolean) => {
         let task = tasks.find(task => task.id === id)
@@ -30,13 +34,25 @@ function App() {
         let filteredTasks = tasks.filter(task => task.id !== id)
         setTasks(filteredTasks)
     }
+    const changeFilterForTask = (filter: FilterTaskValues) => {
+        setFilter(filter)
+    }
+
+    if (filter === 'Active') {
+        tasksForTodolist = tasks.filter(task => task.isDone === false)
+    }
+    if (filter === 'Completed') {
+        tasksForTodolist = tasks.filter(task => task.isDone)
+    }
+
 
     return (
         <div className="App">
             <Todolist title={'What to learn'}
-                      tasks={tasks}
                       changeTaskStatus={changeTaskStatus}
                       removeTask={removeTask}
+                      tasks={tasksForTodolist}
+                      filter={changeFilterForTask}
             />
         </div>
     );

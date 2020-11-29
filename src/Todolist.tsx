@@ -1,21 +1,25 @@
 import React, {ChangeEvent} from 'react';
 import './App.css';
-import {TaskType} from "./App";
+import {FilterTaskValues, TaskType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
     changeTaskStatus: (id: string, value: boolean) => void
     removeTask: (id: string) => void
+    filter: (filter: FilterTaskValues) => void
 }
 
 function Todolist(props: PropsType) {
 
     const onAllClickHandler = () => {
+        props.filter('All')
     }
     const onActiveClickHandler = () => {
+        props.filter('Active')
     }
     const onCompletedClickHandler = () => {
+        props.filter('Completed')
     }
 
     return (
