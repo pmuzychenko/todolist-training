@@ -26,11 +26,17 @@ function App() {
             setTasks([...tasks])
         }
     }
+    const removeTask = (id: string) => {
+        let filteredTasks = tasks.filter(task => task.id !== id)
+        setTasks(filteredTasks)
+    }
+
     return (
         <div className="App">
             <Todolist title={'What to learn'}
                       tasks={tasks}
                       changeTaskStatus={changeTaskStatus}
+                      removeTask={removeTask}
             />
         </div>
     );

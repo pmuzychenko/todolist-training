@@ -6,13 +6,20 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     changeTaskStatus: (id: string, value: boolean) => void
+    removeTask: (id: string) => void
 }
 
-function Todolist(props:PropsType) {
+function Todolist(props: PropsType) {
 
+    const onAllClickHandler = () => {
+    }
+    const onActiveClickHandler = () => {
+    }
+    const onCompletedClickHandler = () => {
+    }
 
     return (
-        <div>
+        <div className='todolist'>
             <div>
                 <h3>{props.title}</h3>
             </div>
@@ -21,25 +28,28 @@ function Todolist(props:PropsType) {
                 <button>+</button>
             </div>
             <ul>
-                {props.tasks.map( task => {
+                {props.tasks.map(task => {
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                         props.changeTaskStatus(task.id, e.currentTarget.checked)
+                    }
+                    const removeTaskHandler = () => {
+                        props.removeTask(task.id)
                     }
                     return (
                         <li key={task.id}>
                             <input type="checkbox" checked={task.isDone}
-                            onChange={changeTaskStatus}
+                                   onChange={changeTaskStatus}
                             />
                             <span>{task.title}</span>
-                            <button>X</button>
+                            <button onClick={removeTaskHandler}>X</button>
                         </li>
                     )
                 })}
             </ul>
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+            <div className='buttons'>
+                <button onClick={onAllClickHandler}>All</button>
+                <button onClick={onActiveClickHandler}>Active</button>
+                <button onClick={onCompletedClickHandler}>Completed</button>
             </div>
         </div>
     );
