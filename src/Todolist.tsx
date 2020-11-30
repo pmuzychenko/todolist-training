@@ -1,6 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import {FilterTaskValues, TaskType} from "./App";
+import AddItemForm from './AddItemForm';
 
 type PropsType = {
     title: string
@@ -16,8 +17,6 @@ type PropsType = {
 }
 
 function Todolist(props: PropsType) {
-    const [title, setTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
 
     const onAllClickHandler = () => {
         props.changeFilterForTask('All', props.id)
@@ -29,25 +28,11 @@ function Todolist(props: PropsType) {
         props.changeFilterForTask('Completed', props.id)
     }
 
-    const addNewTask = () => {
-        if (title.trim() !== '') {
+    const addNewTask = (title:string) => {
             props.addNewTask(title, props.id)
-            setTitle('')
-        } else {
-            setError('The title is required')
-        }
-    }
-    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setError('')
-        let newTitle = e.currentTarget.value
-        setTitle(newTitle)
     }
 
-    const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            addNewTask()
-        }
-    }
+
     const removeTodolist = () => {
         props.removeTodolist(props.id)
     }
@@ -59,15 +44,7 @@ function Todolist(props: PropsType) {
                     <button onClick={removeTodolist}>X</button>
                 </h3>
             </div>
-            <div>
-                <input type="text" value={title}
-                       onChange={onChangeTitle}
-                       onKeyPress={onPressKeyHandler}
-                       className={error ? 'error' : ''}
-                />
-                <button onClick={addNewTask}>+</button>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+            <AddItemForm addItem={addNewTask}/>
             <ul>
                 {props.tasks.map(task => {
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
