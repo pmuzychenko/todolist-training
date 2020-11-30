@@ -1,5 +1,11 @@
 .App {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.App .todolist {
+    margin: 20px;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;

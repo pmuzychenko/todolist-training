@@ -7,9 +7,10 @@ type PropsType = {
     tasks: Array<TaskType>
     changeTaskStatus: (id: string, value: boolean) => void
     removeTask: (id: string) => void
-    changeFilterForTask: (filter: FilterTaskValues) => void
+    changeFilterForTask: (filter: FilterTaskValues, todolistId: string) => void
     addNewTask: (title: string) => void
     filter: FilterTaskValues
+    id: string
 
 }
 
@@ -18,13 +19,13 @@ function Todolist(props: PropsType) {
     const [error, setError] = useState<string | null>(null)
 
     const onAllClickHandler = () => {
-        props.changeFilterForTask('All')
+        props.changeFilterForTask('All', props.id )
     }
     const onActiveClickHandler = () => {
-        props.changeFilterForTask('Active')
+        props.changeFilterForTask('Active', props.id)
     }
     const onCompletedClickHandler = () => {
-        props.changeFilterForTask('Completed')
+        props.changeFilterForTask('Completed', props.id)
     }
 
     const addNewTask = () => {
