@@ -59,8 +59,9 @@ function App() {
                       changeTaskStatus={changeTaskStatus}
                       removeTask={removeTask}
                       tasks={tasksForTodolist}
-                      filter={changeFilterForTask}
+                      changeFilterForTask={changeFilterForTask}
                       addNewTask={addTask}
+                      filter={filter}
             />
         </div>
     );
