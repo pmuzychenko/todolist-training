@@ -8,6 +8,8 @@ type PropsType = {
     changeTaskStatus: (id: string, value: boolean) => void
     removeTask: (id: string) => void
     filter: (filter: FilterTaskValues) => void
+    addNewTask: () => void
+
 }
 
 function Todolist(props: PropsType) {
@@ -22,6 +24,10 @@ function Todolist(props: PropsType) {
         props.filter('Completed')
     }
 
+    const addNewTask = () => {
+        props.addNewTask()
+    }
+
     return (
         <div className='todolist'>
             <div>
@@ -29,7 +35,7 @@ function Todolist(props: PropsType) {
             </div>
             <div>
                 <input type="text"/>
-                <button>+</button>
+                <button onClick={addNewTask}>+</button>
             </div>
             <ul>
                 {props.tasks.map(task => {
