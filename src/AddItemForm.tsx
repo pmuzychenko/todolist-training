@@ -32,15 +32,15 @@ function AddItemForm(props: PropsType) {
     }
 
     return (
-            <div>
-                <input type="text" value={title}
-                       onChange={onChangeTitle}
-                       onKeyPress={onPressKeyHandler}
-                       className={error ? 'error' : ''}
-                />
-                <button onClick={addItem}>+</button>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+        <div>
+            <input type="text" value={title}
+                   onChange={onChangeTitle}
+                   onKeyPress={onPressKeyHandler}
+                   className={error ? 'error' : ''}
+            />
+            <button onClick={addItem}>+</button>
+            {error && <div className={'error-message'}>{error}</div>}
+        </div>
     );
 }
 
