@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.App .addItemForm {
+    margin: 20px;
+}
+
 .todolist h3 {
     text-align: center;
 }

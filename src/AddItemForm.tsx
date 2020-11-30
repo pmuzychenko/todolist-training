@@ -32,7 +32,7 @@ function AddItemForm(props: PropsType) {
     }
 
     return (
-        <div>
+        <div className='addItemForm'>
             <input type="text" value={title}
                    onChange={onChangeTitle}
                    onKeyPress={onPressKeyHandler}
