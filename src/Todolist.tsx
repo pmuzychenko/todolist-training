@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import {FilterTaskValues, TaskType} from "./App";
 
@@ -8,11 +8,12 @@ type PropsType = {
     changeTaskStatus: (id: string, value: boolean) => void
     removeTask: (id: string) => void
     filter: (filter: FilterTaskValues) => void
-    addNewTask: () => void
+    addNewTask: (title: string) => void
 
 }
 
 function Todolist(props: PropsType) {
+    const [title,setTitle] = useState('')
 
     const onAllClickHandler = () => {
         props.filter('All')
@@ -25,7 +26,11 @@ function Todolist(props: PropsType) {
     }
 
     const addNewTask = () => {
-        props.addNewTask()
+        props.addNewTask(title)
+    }
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        let newTitle = e.currentTarget.value
+        setTitle(newTitle)
     }
 
     return (
@@ -34,7 +39,10 @@ function Todolist(props: PropsType) {
                 <h3>{props.title}</h3>
             </div>
             <div>
-                <input type="text"/>
+                <input type="text" value={title}
+                       onChange={onChangeTitle}
+
+                />
                 <button onClick={addNewTask}>+</button>
             </div>
             <ul>

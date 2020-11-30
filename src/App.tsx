@@ -34,11 +34,11 @@ function App() {
         let filteredTasks = tasks.filter(task => task.id !== id)
         setTasks(filteredTasks)
     }
-    const addTask = () => {
+    const addTask = (title: string) => {
         let newTask:TaskType = {
-            id: v1(), title:"It's a new task", isDone: false
+            id: v1(), title: title, isDone: false
         }
-        setTasks([...tasks,newTask])
+        setTasks([newTask,...tasks])
     }
 
     const changeFilterForTask = (filter: FilterTaskValues) => {
