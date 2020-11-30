@@ -70,7 +70,7 @@ function Todolist(props: PropsType) {
                         props.removeTask(task.id)
                     }
                     return (
-                        <li key={task.id}>
+                        <li key={task.id} className={task.isDone ? 'is-done' : ''}>
                             <input type="checkbox" checked={task.isDone}
                                    onChange={changeTaskStatus}
                             />
