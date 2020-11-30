@@ -96,6 +96,15 @@ function App() {
         setTasks({...tasks, [newTodolistId]: [] })
     }
 
+    const onChangeTaskTitle = (id: string, newTitle: string, todolistId: string ) => {
+        let todolistTasks = tasks[todolistId]
+        let task = todolistTasks.find(task => task.id === id)
+        if (task) {
+            task.title = newTitle
+            setTasks({...tasks})
+        }
+    }
+
     return (
         <div className="App">
             <AddItemForm addItem={addTodolist}/>
@@ -118,6 +127,7 @@ function App() {
                                      addNewTask={addTask}
                                      filter={tl.filter}
                                      removeTodolist={removeTodolist}
+                                     onChangeTaskTitle={onChangeTaskTitle}
                     />
                 })
             }
