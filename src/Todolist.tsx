@@ -64,13 +64,16 @@ function Todolist(props: PropsType) {
                     }
 
                     return (
-                        <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                            <input type="checkbox" checked={task.isDone}
-                                   onChange={changeTaskStatus}
-                            />
-                            <EditableSpan value={task.title} onChangeTitle={onChangeTitle}/>
-                            <button onClick={removeTaskHandler}>X</button>
-                        </li>
+                        <div className='tasks'>
+                            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+                                <input type="checkbox" checked={task.isDone}
+                                       onChange={changeTaskStatus}
+                                />
+                                <EditableSpan value={task.title} onChangeTitle={onChangeTitle}/>
+                                <button onClick={removeTaskHandler}>X</button>
+                            </li>
+                        </div>
+
                     )
                 })}
             </ul>
