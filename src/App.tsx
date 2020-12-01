@@ -130,7 +130,7 @@ function App() {
             </AppBar>
 
             <Container>
-                <Grid container>
+                <Grid container style={{padding: '20px'}}>
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
 

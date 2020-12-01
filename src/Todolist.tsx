@@ -56,7 +56,7 @@ function Todolist(props: PropsType) {
                 </h2>
             </div>
             <AddItemForm addItem={addNewTask}/>
-            <ul>
+            <div>
                 {props.tasks.map(task => {
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                         props.changeTaskStatus(task.id, e.currentTarget.checked, props.id)
@@ -70,7 +70,7 @@ function Todolist(props: PropsType) {
 
                     return (
                         <div className='tasks'>
-                            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+                            <div key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 {/*<input type="checkbox" checked={task.isDone}*/}
                                 {/*       onChange={changeTaskStatus}*/}
                                 {/*/>*/}
@@ -82,12 +82,12 @@ function Todolist(props: PropsType) {
                                 <IconButton onClick={removeTaskHandler}>
                                     <Delete/>
                                 </IconButton>
-                            </li>
+                            </div>
                         </div>
 
                     )
                 })}
-            </ul>
+            </div>
             <div className='buttons'>
                 <Button
                     variant={'contained'}
