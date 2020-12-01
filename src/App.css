@@ -1,47 +1,47 @@
-.App {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.App .todolist {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+/*.App {*/
+/*    display: flex;*/
+/*    justify-content: flex-start;*/
+/*    align-items: center;*/
+/*}*/
+/*.App .todolist {*/
+/*    margin: 20px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
-.App .addItemForm {
-    margin: 20px;
-}
-.App .addItemForm button {
-    margin-left: 5px;
-}
+/*.App .addItemForm {*/
+/*    margin: 20px;*/
+/*}*/
+/*.App .addItemForm button {*/
+/*    margin-left: 5px;*/
+/*}*/
 
-.todolist h2 {
-    text-align: center;
-}
-.todolist h2 button{
-    margin-left: 5px;
-}
+/*.todolist h2 {*/
+/*    text-align: center;*/
+/*}*/
+/*.todolist h2 button{*/
+/*    margin-left: 5px;*/
+/*}*/
 
-.tasks button {
-    margin-left: 5px;
-}
+/*.tasks button {*/
+/*    margin-left: 5px;*/
+/*}*/
 
 
-.buttons button {
-    margin-left: 5px;
-}
+/*.buttons button {*/
+/*    margin-left: 5px;*/
+/*}*/
 
-.error {
-    border: red 1px solid;
-}
+/*.error {*/
+/*    border: red 1px solid;*/
+/*}*/
 
-.error-message {
-    color: red;
-}
+/*.error-message {*/
+/*    color: red;*/
+/*}*/
 
-.is-done {
-    opacity: 0.5;
-}
+/*.is-done {*/
+/*    opacity: 0.5;*/
+/*}*/
