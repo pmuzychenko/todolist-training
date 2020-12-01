@@ -2,6 +2,8 @@ import Button from '@material-ui/core/Button';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import './App.css';
 import TextField from '@material-ui/core/TextField/TextField';
+import {AddBox} from "@material-ui/icons";
+import {IconButton} from "@material-ui/core";
 
 
 type PropsType = {
@@ -46,7 +48,10 @@ function AddItemForm(props: PropsType) {
                 helperText={error}
             />
 
-            <Button variant='contained' color='primary' size='small' onClick={addItem}>+</Button>
+            {/*<Button variant='contained' color='primary' size='small' onClick={addItem}>+</Button>*/}
+            <IconButton color='primary' onClick={addItem}>
+                <AddBox/>
+            </IconButton>
         </div>
     );
 }
