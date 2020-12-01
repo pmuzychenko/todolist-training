@@ -3,7 +3,7 @@ import './App.css';
 import {FilterTaskValues, TaskType} from "./App";
 import AddItemForm from './AddItemForm';
 import EditableSpan from "./EditableSpan";
-import {IconButton} from "@material-ui/core";
+import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 
 type PropsType = {
@@ -49,7 +49,6 @@ function Todolist(props: PropsType) {
         <div className='todolist'>
             <div>
                 <h3><EditableSpan value={props.title} onChangeTitle={onChangeTodolistTitle}/>
-                    {/*<button onClick={removeTodolist}>X</button>*/}
                     <IconButton onClick={removeTodolist}>
                         <Delete/>
                     </IconButton>
@@ -85,15 +84,21 @@ function Todolist(props: PropsType) {
                 })}
             </ul>
             <div className='buttons'>
-                <button className={props.filter === 'All' ? 'active-filter' : ''}
-                        onClick={onAllClickHandler}>All
-                </button>
-                <button className={props.filter === 'Active' ? 'active-filter' : ''}
-                        onClick={onActiveClickHandler}>Active
-                </button>
-                <button className={props.filter === 'Completed' ? 'active-filter' : ''}
-                        onClick={onCompletedClickHandler}>Completed
-                </button>
+                <Button
+                    variant={'contained'}
+                    color={props.filter === 'All' ? 'primary' : 'default'}
+                    onClick={onAllClickHandler}>All
+                </Button>
+                <Button
+                    variant={'contained'}
+                    color={props.filter === 'Active' ? 'primary' : 'default'}
+                    onClick={onActiveClickHandler}>Active
+                </Button>
+                <Button
+                    variant={'contained'}
+                    color={props.filter === 'Completed' ? 'primary' : 'default'}
+                    onClick={onCompletedClickHandler}>Completed
+                </Button>
             </div>
         </div>
     );
