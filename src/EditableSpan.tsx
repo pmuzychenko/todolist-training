@@ -14,7 +14,6 @@ function EditableSpan(props: PropsType) {
     const activateEditMode = () => {
         setEditMode(true)
         setTitle(props.value)
-
     }
     const activateViewMode = () => {
         setEditMode(false)
@@ -23,8 +22,6 @@ function EditableSpan(props: PropsType) {
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-
-
     }
 
     return editMode
