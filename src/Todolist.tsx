@@ -5,6 +5,7 @@ import AddItemForm from './AddItemForm';
 import EditableSpan from "./EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
+import Checkbox from "@material-ui/core/Checkbox";
 
 type PropsType = {
     title: string
@@ -48,11 +49,11 @@ function Todolist(props: PropsType) {
     return (
         <div className='todolist'>
             <div>
-                <h3><EditableSpan value={props.title} onChangeTitle={onChangeTodolistTitle}/>
+                <h2><EditableSpan value={props.title} onChangeTitle={onChangeTodolistTitle}/>
                     <IconButton onClick={removeTodolist}>
                         <Delete/>
                     </IconButton>
-                </h3>
+                </h2>
             </div>
             <AddItemForm addItem={addNewTask}/>
             <ul>
@@ -70,8 +71,12 @@ function Todolist(props: PropsType) {
                     return (
                         <div className='tasks'>
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <input type="checkbox" checked={task.isDone}
-                                       onChange={changeTaskStatus}
+                                {/*<input type="checkbox" checked={task.isDone}*/}
+                                {/*       onChange={changeTaskStatus}*/}
+                                {/*/>*/}
+                                <Checkbox checked={task.isDone}
+                                          onChange={changeTaskStatus}
+                                          color='primary'
                                 />
                                 <EditableSpan value={task.title} onChangeTitle={onChangeTitle}/>
                                 <IconButton onClick={removeTaskHandler}>
