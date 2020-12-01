@@ -41,7 +41,7 @@ function AddItemForm(props: PropsType) {
                 value={title}
                 onChange={onChangeTitle}
                 onKeyPress={onPressKeyHandler}
-                className={error ? 'error' : ''}
+                error={!!error}
             />
 
             <Button variant='contained' color='primary' size='small' onClick={addItem}>+</Button>
