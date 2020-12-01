@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from 'react';
-import './App.css';
 import {FilterTaskValues, TaskType} from "./App";
 import AddItemForm from './AddItemForm';
 import EditableSpan from "./EditableSpan";
@@ -71,9 +70,6 @@ function Todolist(props: PropsType) {
                     return (
                         <div className='tasks'>
                             <div key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                {/*<input type="checkbox" checked={task.isDone}*/}
-                                {/*       onChange={changeTaskStatus}*/}
-                                {/*/>*/}
                                 <Checkbox checked={task.isDone}
                                           onChange={changeTaskStatus}
                                           color='primary'
