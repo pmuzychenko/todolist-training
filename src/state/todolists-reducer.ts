@@ -1,19 +1,42 @@
-import {TodolistType} from "../App";
+import {FilterTaskValues, TodolistType} from "../App";
 import {v1} from "uuid";
 
 
-type ActionType = {
-    type: string
-    [key: string]: any
+export type RemoveTodolistActionType = {
+    type: 'REMOVE-TODOLIST'
+    id: string
+}
+export type AddTodolistActionType = {
+    type: 'ADD-TODOLIST'
+    title: string
+    filter: FilterTaskValues
+}
+export type ChangeTodolistTitleActionType = {
+    type: 'CHANGE-TODOLIST-NAME'
+    id: string
+    title: string
+}
+export type ChangeTodolistFilterActionType = {
+    type: 'CHANGE-TODOLIST-FILTER'
+    filter: FilterTaskValues
+    id: string
 }
 
 
-export const todolistsReducer = (state: Array<TodolistType>, action: ActionType): Array<TodolistType> => {
+type ActionsType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeTodolistFilterActionType
+
+export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType  => ({type:'REMOVE-TODOLIST', id: todolistId })
+export const AddTodolistAC = (title: string, filter: FilterTaskValues):AddTodolistActionType  => ({type:'ADD-TODOLIST', title, filter})
+export const ChangeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => ({type:'CHANGE-TODOLIST-NAME', id: todolistId, title })
+export const ChangeTodolistFilterAC = (filter: FilterTaskValues, todolistId: string) : ChangeTodolistFilterActionType => ({type:'CHANGE-TODOLIST-FILTER', filter: filter,id: todolistId })
+
+
+export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType): Array<TodolistType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return state.filter(tl => tl.id !== action.id)
         case 'ADD-TODOLIST':
-            return [...state, {id: v1(), title: action.title, filter: 'All'}]
+            return [...state, {id: v1(), title: action.title, filter: action.filter}]
         case 'CHANGE-TODOLIST-NAME':
             let todolist = state.find(tl => tl.id === action.id)
             if (todolist) {
