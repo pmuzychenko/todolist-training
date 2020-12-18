@@ -35,8 +35,8 @@ export const AddTaskAC = (title: string, todolistId: string): AddTaskActionType 
 export const ChangeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => ({type:'CHANGE-TASK-NAME', taskId, title, todolistId })
 export const ChangeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) : ChangeTaskStatusActionType => ({type:'CHANGE-TASK-STATUS', taskId, isDone, todolistId })
 
-
-export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskStateType => {
+const initialState: TaskStateType = {}
+export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(task => task.id !== action.taskId)}
@@ -63,6 +63,6 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
             delete copyState[action.todolistId]
             return copyState
         default:
-            throw new Error("I don't get this action type")
+            return state
     }
 }
