@@ -1,5 +1,6 @@
 import {TaskStateType, TaskType} from "../App";
 import {v1} from "uuid";
+import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
 
 
 export type RemoveTaskActionType = {
@@ -26,7 +27,8 @@ export type ChangeTaskStatusActionType = {
 }
 
 
-type ActionsType = RemoveTaskActionType | AddTaskActionType | ChangeTaskTitleActionType | ChangeTaskStatusActionType
+type ActionsType = RemoveTaskActionType | AddTaskActionType | ChangeTaskTitleActionType |
+    ChangeTaskStatusActionType | AddTodolistActionType | RemoveTodolistActionType
 
 export const RemoveTaskAC = (taskId: string, todolistId: string): RemoveTaskActionType  => ({type:'REMOVE-TASK', taskId, todolistId })
 export const AddTaskAC = (title: string, todolistId: string): AddTaskActionType  => ({type:'ADD-TASK', title,todolistId })
@@ -54,7 +56,12 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
             return {...state, [action.todolistId]: state[action.todolistId].map( task => {
                 if (task.id !== action.taskId) return task
                     else return {...task, isDone: action.isDone}})}
-
+        case 'ADD-TODOLIST':
+            return {...state,[action.todolistId]: []}
+        case 'REMOVE-TODOLIST':
+            let copyState = {...state}
+            delete copyState[action.todolistId]
+            return copyState
         default:
             throw new Error("I don't get this action type")
     }
