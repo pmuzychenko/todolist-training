@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {v1} from 'uuid';
-import AddItemForm from './AddItemForm';
-import Todolist from './Todolist';
+import {Todolist} from './Todolist';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
+import {AddItemForm} from "./AddItemForm";
 
 export type TaskType = {
     id: string
@@ -152,11 +152,11 @@ function App() {
                                               removeTask={removeTask}
                                               tasks={tasksForTodolist}
                                               changeFilterForTask={changeFilterForTask}
-                                              addNewTask={addTask}
+                                              _addNewTask={addTask}
                                               filter={tl.filter}
-                                              removeTodolist={removeTodolist}
+                                              _removeTodolist={removeTodolist}
                                               onChangeTaskTitle={onChangeTaskTitle}
-                                              onChangeTodolistTitle={onChangeTodolistTitle}
+                                              _onChangeTodolistTitle={onChangeTodolistTitle}
                                     />
                                 </Paper>
                             </Grid>

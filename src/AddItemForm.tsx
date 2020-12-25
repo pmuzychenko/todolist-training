@@ -8,7 +8,8 @@ type PropsType = {
     addItem: (title: string) => void
 }
 
-function AddItemForm(props: PropsType) {
+export const AddItemForm = React.memo((props: PropsType) => {
+    console.log("AddItemForm is called")
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -46,12 +47,9 @@ function AddItemForm(props: PropsType) {
                 helperText={error}
             />
 
-            {/*<Button variant='contained' color='primary' size='small' onClick={addItem}>+</Button>*/}
             <IconButton color='primary' onClick={addItem}>
                 <AddBox/>
             </IconButton>
         </div>
     );
-}
-
-export default AddItemForm;
+})

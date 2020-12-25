@@ -1,7 +1,6 @@
 import React, {useReducer} from 'react';
 import {v1} from 'uuid';
-import AddItemForm from './AddItemForm';
-import Todolist from './Todolist';
+import {Todolist} from './Todolist';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
 import {
@@ -12,6 +11,7 @@ import {
     todolistsReducer
 } from "./state/todolists-reducer";
 import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {AddItemForm} from "./AddItemForm";
 
 export type TaskType = {
     id: string
@@ -130,11 +130,11 @@ function AppWithReducers() {
                                               removeTask={removeTask}
                                               tasks={tasksForTodolist}
                                               changeFilterForTask={changeFilterForTask}
-                                              addNewTask={addTask}
+                                              _addNewTask={addTask}
                                               filter={tl.filter}
-                                              removeTodolist={removeTodolist}
+                                              _removeTodolist={removeTodolist}
                                               onChangeTaskTitle={onChangeTaskTitle}
-                                              onChangeTodolistTitle={onChangeTodolistTitle}
+                                              _onChangeTodolistTitle={onChangeTodolistTitle}
                                     />
                                 </Paper>
                             </Grid>
