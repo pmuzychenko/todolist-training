@@ -52,13 +52,11 @@ function AppWithRedux() {
     },[dispatch]);
 
     const addTodolist = useCallback((title: string) => {
-        const action = AddTodolistAC(title)
-        dispatch(action)
+        dispatch(AddTodolistAC(title))
     }, [dispatch]);
 
     const removeTodolist = useCallback((todolistId: string) => {
-        const action = RemoveTodolistAC(todolistId)
-        dispatch(action)
+        dispatch(RemoveTodolistAC(todolistId))
     },[dispatch]);
     const onChangeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
         dispatch(ChangeTaskTitleAC(id, newTitle,todolistId))
@@ -93,6 +91,7 @@ function AppWithRedux() {
                 <Grid container spacing={3}>
                     {
                         todolists.map(tl => {
+
                             let tasksForTodolist = tasks[tl.id]
 
                             return <Grid item>

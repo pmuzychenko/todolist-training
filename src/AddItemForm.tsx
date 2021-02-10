@@ -29,6 +29,9 @@ export const AddItemForm = React.memo((props: PropsType) => {
     }
 
     const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null)
+        }
         if (e.key === 'Enter') {
             addItem()
         }

@@ -17,9 +17,11 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task,todolistId,change
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         changeTaskStatus(task.id, e.currentTarget.checked, todolistId)
     }
+
     const removeTaskHandler = () => {
         removeTask(task.id, todolistId)
     }
+
     const onChangeTitle = useCallback((newTitle: string) => {
         onChangeTaskTitle(task.id, newTitle, todolistId)
     },[onChangeTaskTitle,task.id,todolistId])

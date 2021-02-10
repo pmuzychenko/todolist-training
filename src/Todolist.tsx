@@ -29,9 +29,11 @@ export const Todolist: React.FC<PropsType>= React.memo(function (
     const onAllClickHandler = useCallback(() => {
         changeFilterForTask('All', id)
     }, [changeFilterForTask, id])
+
     const onActiveClickHandler = useCallback(() => {
         changeFilterForTask('Active', id)
     }, [changeFilterForTask, id])
+
     const onCompletedClickHandler = useCallback(() => {
         changeFilterForTask('Completed', id)
     }, [changeFilterForTask, id])
@@ -44,17 +46,21 @@ export const Todolist: React.FC<PropsType>= React.memo(function (
     const removeTodolist = useCallback(() => {
         _removeTodolist(id)
     }, [_removeTodolist, id])
+
     const onChangeTodolistTitle = useCallback((newTitle: string) => {
         _onChangeTodolistTitle(newTitle, id)
     }, [_onChangeTodolistTitle, id])
 
-     let tasksForTodolist = tasks
+    let tasksForTodolist = tasks
+
     if (filter === 'Active') {
         tasksForTodolist = tasks.filter(task => !task.isDone)
     }
+
     if (filter === 'Completed') {
         tasksForTodolist = tasks.filter(task => task.isDone)
     }
+
     return (
         <div className='todolist'>
             <div>
