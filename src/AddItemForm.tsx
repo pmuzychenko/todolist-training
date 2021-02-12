@@ -4,11 +4,11 @@ import {AddBox} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 
 
-type PropsType = {
+export type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = React.memo((props: PropsType) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     console.log("AddItemForm is called")
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
