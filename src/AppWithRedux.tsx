@@ -35,6 +35,7 @@ function AppWithRedux() {
     //add hook useState for rerender UI
     console.log('AppWithRedux is called')
 
+
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
     const dispatch = useDispatch()
