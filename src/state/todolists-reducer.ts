@@ -1,5 +1,7 @@
 import {v1} from "uuid";
-import {TodolistType} from "../api/todolist-api";
+import {todolistAPI, TodolistType} from "../api/todolist-api";
+import {Dispatch} from "redux";
+import {AppRootStateType} from "./store";
 
 
 export type RemoveTodolistActionType = {
@@ -24,14 +26,10 @@ export type ChangeTodolistFilterActionType = {
     todolistId: string
 }
 
-export type SetTodolistsActionType = {
-    type: 'SET-TODOLISTS'
-    todolists: Array<TodolistType>
-}
-
+export type GetTodolistsActionType = ReturnType<typeof getTodolistsAC>
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType
-    | ChangeTodolistFilterActionType | SetTodolistsActionType
+    | ChangeTodolistFilterActionType | GetTodolistsActionType
 
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => ({
@@ -54,10 +52,10 @@ export const changeTodolistFilterAC = (filter: FilterValuesType, todolistId: str
     todolistId
 })
 
-export const SetTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => ({
-    type: 'SET-TODOLISTS',
+export const getTodolistsAC = (todolists: Array<TodolistType>) => ({
+    type: 'GET-TODOLISTS',
     todolists
-})
+} as const)
 
 
 const initialState: Array<TodolistDomainType> = [
@@ -71,7 +69,13 @@ export type TodolistDomainType = TodolistType & {
 }
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
+    debugger
     switch (action.type) {
+        case "GET-TODOLISTS":{
+            return action.todolists.map( tl => {
+                return {...tl, filter: 'all'}
+            })
+        }
         case 'REMOVE-TODOLIST': {
             return state.filter(tl => tl.id !== action.todolistId)
         }
@@ -105,4 +109,11 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         default:
             return state
     }
+}
+
+export const getTodolistTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    todolistAPI.getTodolists()
+        .then( res => {
+            dispatch(getTodolistsAC(res.data))
+        })
 }
