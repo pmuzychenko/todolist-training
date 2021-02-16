@@ -57,15 +57,8 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
     }
 }
 
-type ActionsType =
-    | ReturnType<typeof removeTaskAC>
-    | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof updateTaskAC>
-    | ReturnType<typeof addTodolistAC>
-    | ReturnType<typeof removeTodolistAC>
-    | ReturnType<typeof getTodolistsAC>
-    | ReturnType<typeof setTasksAC>
 
+//actions
 export const removeTaskAC = (taskId: string, todolistId: string) => ({
     type: 'REMOVE-TASK',
     taskId: taskId,
@@ -87,6 +80,8 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
     todolistId
 } as const)
 
+
+//thunks
 export const SetTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     todolistAPI.getTasks(todolistId)
         .then(res => {
@@ -108,14 +103,6 @@ export const AddTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
         })
 }
 
-export type UpdateDomainTaskModelType = {
-    title?: string
-    description?: string
-    status?: TaskStatuses
-    priority?: TaskPriorities
-    startDate?: string
-    deadline?: string
-}
 
 export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const tasks = getState().tasks
@@ -138,4 +125,23 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
         .then((res) => {
             dispatch(updateTaskAC(taskId, domainModel, todolistId))
         })
+}
+
+// types
+type ActionsType =
+    | ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof updateTaskAC>
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof removeTodolistAC>
+    | ReturnType<typeof getTodolistsAC>
+    | ReturnType<typeof setTasksAC>
+
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
 }
