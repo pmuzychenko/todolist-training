@@ -6,9 +6,7 @@ const initialState: Array<TodolistDomainType> = []
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case "GET-TODOLISTS": {
-            return action.todolists.map(tl => {
-                return {...tl, filter: 'all'}
-            })
+            return action.todolists.map(tl => ({...tl, filter: 'all'}))
         }
 
         case 'REMOVE-TODOLIST': {
@@ -21,21 +19,12 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             }, ...state]
         }
 
-        case 'CHANGE-TODOLIST-NAME': {
-            let copyState = [...state]
-            let todolist = copyState.find(tl => tl.id === action.todolistId)
-            if (todolist) {
-                todolist.title = action.title
-            }
-            return copyState
+        case 'CHANGE-TODOLIST-TITLE': {
+            return state.map(tl => tl.id === action.todolistId ? {...tl, title: action.title} : tl)
         }
 
         case 'CHANGE-TODOLIST-FILTER': {
-            let filteredTodolist = state.find(tl => tl.id === action.todolistId)
-            if (filteredTodolist) {
-                filteredTodolist.filter = action.filter
-            }
-            return [...state]
+            return state.map(tl => tl.id === action.todolistId ? {...tl, title: action.filter} : tl)
         }
 
         default:
@@ -50,7 +39,7 @@ export const addTodolistAC = (title: string, todolist: TodolistType) =>
     ({type: 'ADD-TODOLIST', title, todolist, filter: 'all'} as const)
 
 export const changeTodolistTitleAC = (title: string, todolistId: string) => ({
-    type: 'CHANGE-TODOLIST-NAME',
+    type: 'CHANGE-TODOLIST-TITLE',
     title,
     todolistId
 } as const)
