@@ -1,4 +1,3 @@
-
 import React, {ChangeEvent, useCallback} from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import {EditableSpan} from "./EditableSpan";
@@ -13,7 +12,7 @@ export type TaskPropsType = {
     removeTask: (id: string, todolistId: string) => void
     onChangeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
 }
-export const Task: React.FC<TaskPropsType> = React.memo(({task,todolistId,changeTaskStatus,onChangeTaskTitle,removeTask}) => {
+export const Task: React.FC<TaskPropsType> = React.memo(({task, todolistId, changeTaskStatus, onChangeTaskTitle, removeTask}) => {
     console.log('Task is called')
 
     const changeTaskStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +27,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task,todolistId,change
 
     const onChangeTitle = useCallback((newTitle: string) => {
         onChangeTaskTitle(task.id, newTitle, todolistId)
-    },[onChangeTaskTitle,task.id,todolistId])
+    }, [onChangeTaskTitle, task.id, todolistId])
 
     return (
         <div className='tasks'>

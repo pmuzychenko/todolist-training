@@ -23,12 +23,14 @@ type PropsType = {
     _onChangeTodolistTitle: (newTitle: string, todolistId: string) => void
 }
 
-export const Todolist: React.FC<PropsType>= React.memo(function (
-    {id,title,tasks,changeTaskStatus,removeTask,changeFilterForTask,_addNewTask,filter,
-        _removeTodolist,onChangeTaskTitle,_onChangeTodolistTitle}
-    ) {
+export const Todolist: React.FC<PropsType> = React.memo(function (
+    {
+        id, title, tasks, changeTaskStatus, removeTask, changeFilterForTask, _addNewTask, filter,
+        _removeTodolist, onChangeTaskTitle, _onChangeTodolistTitle
+    }
+) {
     const dispatch = useDispatch()
-    useEffect( () => {
+    useEffect(() => {
         dispatch(SetTasksTC(id))
     }, [tasks])
 
