@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {FilterTaskValues, TodolistType} from "../../App";
+import {FilterTaskValues, TodolistType} from "../../../../app";
 import {
     AddTodolistAC,
     ChangeTodolistFilterAC,
