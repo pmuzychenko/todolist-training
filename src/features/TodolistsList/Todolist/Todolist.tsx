@@ -32,7 +32,7 @@ export const Todolist: React.FC<PropsType> = React.memo(function (
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(SetTasksTC(id))
-    }, [tasks])
+    }, [])
 
     const onAllClickHandler = useCallback(() => {
         changeFilterForTask('all', id)

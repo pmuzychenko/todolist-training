@@ -36,7 +36,7 @@ export const removeTodolistAC = (todolistId: string) => ({type: 'REMOVE-TODOLIST
 export const addTodolistAC = (todolist: TodolistType) =>
     ({type: 'ADD-TODOLIST', todolist} as const)
 
-export const changeTodolistTitleAC = (todolistId: string, title: string) => ({
+export const changeTodolistTitleAC = (title: string, todolistId: string) => ({
     type: 'CHANGE-TODOLIST-TITLE',
     title,
     todolistId
@@ -68,16 +68,15 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
         .then(res => dispatch(addTodolistAC(res.data.data.item)))
 }
 
-export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const updateTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
     todolistAPI.updateTodolist(todolistId, title)
-        .then(() => dispatch(changeTodolistTitleAC(title, todolistId)))
+        .then(() => {
+            dispatch(changeTodolistTitleAC(title, todolistId))
+        })
 }
 
 //types
-export type FilterValuesType = "all" | "active" | "completed";
-export type TodolistDomainType = TodolistType & {
-    filter: FilterValuesType
-}
+
 
 type ActionsType =
     | ReturnType<typeof getTodolistsAC>
@@ -85,3 +84,8 @@ type ActionsType =
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
+
+export type FilterValuesType = "all" | "active" | "completed";
+export type TodolistDomainType = TodolistType & {
+    filter: FilterValuesType
+}

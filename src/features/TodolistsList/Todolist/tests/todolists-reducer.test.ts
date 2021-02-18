@@ -50,7 +50,7 @@ test('correct todolist should be added', () => {
 test('correct todolist should change its name', () => {
     let newTodolistTitle = 'New Todolist'
 
-    const action = changeTodolistTitleAC(todolistId2, newTodolistTitle)
+    const action = changeTodolistTitleAC(newTodolistTitle, todolistId2)
 
     const endState = todolistsReducer(startState, action)
 
