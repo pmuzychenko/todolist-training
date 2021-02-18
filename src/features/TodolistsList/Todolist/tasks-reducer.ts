@@ -3,6 +3,7 @@ import {TaskStateType} from "../../../app/AppWithRedux";
 import {Dispatch} from 'redux';
 import {AppRootStateType} from "../../../app/store";
 import {addTodolistAC, getTodolistsAC, removeTodolistAC} from "./todolists-reducer";
+import {setAppStatusAC} from "../../../app/app-reducer";
 
 
 const initialState: TaskStateType = {}
@@ -15,16 +16,18 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return stateCopy
         }
         case 'REMOVE-TASK': {
-           return  {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
+            return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
         }
         case 'ADD-TASK': {
-            return {...state,
+            return {
+                ...state,
                 [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]
             }
         }
         case 'UPDATE-TASK': {
-            return {...state,
-                [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {...t, ...action.model}:t)
+            return {
+                ...state,
+                [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {...t, ...action.model} : t)
             }
         }
         case 'ADD-TODOLIST': {
@@ -72,23 +75,29 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
 
 //thunks
 export const SetTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.getTasks(todolistId)
         .then(res => {
             dispatch(setTasksAC(res.data.items, todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
 export const RemoveTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.deleteTask(todolistId, taskId)
         .then(() => {
             dispatch(removeTaskAC(taskId, todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
 export const AddTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.createTask(todolistId, title)
         .then((res) => {
             dispatch((addTaskAC(res.data.data.item)))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
@@ -110,9 +119,11 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
         title: checkedTask.title,
         ...domainModel
     }
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.updateTask(todolistId, taskId, apiModel)
         .then((res) => {
             dispatch(updateTaskAC(taskId, domainModel, todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
