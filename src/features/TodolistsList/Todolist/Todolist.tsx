@@ -79,7 +79,7 @@ export const Todolist: React.FC<PropsType> = React.memo(function (
                     </IconButton>
                 </h2>
             </div>
-            <AddItemForm addItem={addNewTask}/>
+            <AddItemForm addItem={addNewTask} disabled={entityStatus==='loading'}/>
             <div>
                 {tasksForTodolist.map(task => <Task
                     key={task.id}
