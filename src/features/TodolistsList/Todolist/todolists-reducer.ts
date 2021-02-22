@@ -1,6 +1,7 @@
 import {todolistAPI, TodolistType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
-import {RequestStatusType, setAppErrorAC, setAppStatusAC} from "../../../app/app-reducer";
+import {RequestStatusType, setAppStatusAC} from "../../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -59,8 +60,13 @@ export const changeTodolistEntityStatusAC = (todolistId: string, entityStatus: R
 export const getTodolistTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodolists()
-        .then(res => dispatch(getTodolistsAC(res.data)))
-    dispatch(setAppStatusAC('succeeded'))
+        .then(res => {
+            dispatch(getTodolistsAC(res.data))
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(error => {
+            handleServerNetworkError(error,dispatch)
+        })
 }
 
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
@@ -72,6 +78,9 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch(error => {
+            handleServerNetworkError(error,dispatch)
+        })
 }
 
 export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
@@ -82,13 +91,11 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
                 dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('Some error occured'))
-                }
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(res.data, dispatch)
             }
+        })
+        .catch(error => {
+            handleServerNetworkError(error,dispatch)
         })
 }
 
@@ -98,6 +105,9 @@ export const updateTodolistTitleTC = (todolistId: string, title: string) => (dis
         .then(() => {
             dispatch(changeTodolistTitleAC(title, todolistId))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(error => {
+            handleServerNetworkError(error,dispatch)
         })
 }
 
