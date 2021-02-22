@@ -1,4 +1,11 @@
-import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, UpdateTaskModelType} from "../../../api/todolist-api";
+import {
+    ResponseFromServer,
+    TaskPriorities,
+    TaskStatuses,
+    TaskType,
+    todolistAPI,
+    UpdateTaskModelType
+} from "../../../api/todolist-api";
 import {TaskStateType} from "../../../app/AppWithRedux";
 import {Dispatch} from 'redux';
 import {AppRootStateType} from "../../../app/store";
@@ -103,7 +110,7 @@ export const AddTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
     dispatch(setAppStatusAC('loading'))
     todolistAPI.createTask(todolistId, title)
         .then((res) => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResponseFromServer.Success) {
                 dispatch((addTaskAC(res.data.data.item)))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
@@ -136,7 +143,7 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
     dispatch(setAppStatusAC('loading'))
     todolistAPI.updateTask(todolistId, taskId, apiModel)
         .then((res) => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResponseFromServer.Success) {
                 dispatch(updateTaskAC(taskId, domainModel, todolistId))
                 dispatch(setAppStatusAC('succeeded'))
             } else {

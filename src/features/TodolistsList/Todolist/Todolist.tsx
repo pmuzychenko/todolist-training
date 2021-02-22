@@ -73,7 +73,9 @@ export const Todolist: React.FC<PropsType> = React.memo(function (
     return (
         <div className='todolist'>
             <div>
-                <h2><EditableSpan value={title} onChangeTitle={onChangeTodolistTitle}/>
+                <h2><EditableSpan value={title}
+                                  onChangeTitle={onChangeTodolistTitle}
+                                  disabled={entityStatus==='loading'}/>
                     <IconButton onClick={removeTodolist} disabled={entityStatus==='loading'}>
                         <Delete/>
                     </IconButton>

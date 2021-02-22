@@ -1,4 +1,4 @@
-import {todolistAPI, TodolistType} from "../../../api/todolist-api";
+import {ResponseFromServer, todolistAPI, TodolistType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {RequestStatusType, setAppStatusAC} from "../../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
@@ -87,7 +87,7 @@ export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolistAPI.createTodolist(title)
         .then((res) => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResponseFromServer.Success) {
                 dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {

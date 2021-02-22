@@ -5,6 +5,7 @@ import {TextField} from "@material-ui/core";
 export type EditableSpanPropsType = {
     value: string
     onChangeTitle: (newValue: string) => void
+    disabled?: boolean
 }
 
 export const EditableSpan = React.memo(function(props: EditableSpanPropsType) {
@@ -26,6 +27,10 @@ export const EditableSpan = React.memo(function(props: EditableSpanPropsType) {
     }
 
     return editMode
-        ? <TextField value={title} onChange={changeTitle} onBlur={activateViewMode} autoFocus/>
+        ? <TextField value={title}
+                     onChange={changeTitle}
+                     onBlur={activateViewMode}
+                     disabled={props.disabled}
+                     autoFocus/>
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
 })

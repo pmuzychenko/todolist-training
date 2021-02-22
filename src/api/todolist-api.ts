@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {RequestStatusType} from "../app/app-reducer";
 
 const settings = {
     withCredentials: true,
@@ -77,6 +78,11 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+export enum ResponseFromServer {
+    Success = 0,
+    Error = 1
+}
+
 
 export type TaskType = {
     description: string
@@ -90,6 +96,7 @@ export type TaskType = {
     order: number
     addedDate: string
 }
+
 
 export type UpdateTaskModelType = {
     title: string
