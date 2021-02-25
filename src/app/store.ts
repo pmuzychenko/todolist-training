@@ -3,6 +3,7 @@ import {todolistsReducer} from '../features/TodolistsList/Todolist/todolists-red
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunk from "redux-thunk";
 import {appReducer} from "./app-reducer";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -13,7 +14,7 @@ const rootReducer = combineReducers({
     appStatus: appReducer
 })
 // непосредственно создаём store
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof rootReducer>
 

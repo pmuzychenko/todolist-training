@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {RequestStatusType} from "../app/app-reducer";
 
 const settings = {
     withCredentials: true,
