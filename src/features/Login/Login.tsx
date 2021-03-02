@@ -2,6 +2,12 @@ import React from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from "formik";
 
+
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
 export const Login = () => {
 
     const formik = useFormik({
@@ -9,6 +15,20 @@ export const Login = () => {
             email: '',
             password:'',
             rememberMe: false
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.email) {
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+            if (!values.password) {
+                errors.password = 'Required';
+            } else if (values.password.length < 3) {
+                errors.password = 'Password must be 3 or more characters';
+            }
+            return errors
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
@@ -34,24 +54,20 @@ export const Login = () => {
                             label="Email"
                             margin="normal"
                             type="email"
-                            name="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
+                            {...formik.getFieldProps('email')}
                         />
+                        {formik.errors.email && formik.touched.email ? <div style={{color: 'red'}}>{formik.errors.email}</div>:null}
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
-                            name="password"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
+                            {...formik.getFieldProps('password')}
                         />
+                        {formik.errors.password && formik.touched.password? <div style={{color: 'red'}}>{formik.errors.password}</div>:null}
                         <FormControlLabel
                             label={'Remember me'}
                             control={<Checkbox
-                                name="rememberMe"
-                                onChange={formik.handleChange}
-                                checked={formik.values.rememberMe}/>}
+                                {...formik.getFieldProps('rememberMe')}/>}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                     </FormGroup>
