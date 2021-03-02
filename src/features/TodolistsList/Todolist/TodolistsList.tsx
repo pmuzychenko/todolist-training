@@ -16,13 +16,18 @@ import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist";
 import {TaskStateType} from "../../../app/AppWithRedux";
 
-type TodolistsListPropsType = {}
-export const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
+type TodolistsListPropsType = {
+    demo?: boolean
+}
+export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo=false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        if (demo) {
+            return;
+        }
         dispatch(getTodolistTC())
     }, [])
 
@@ -84,6 +89,7 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
                                           _removeTodolist={removeTodolist}
                                           onChangeTaskTitle={onChangeTaskTitle}
                                           _onChangeTodolistTitle={onChangeTodolistTitle}
+                                          demo={demo}
                                 />
                             </Paper>
                         </Grid>
