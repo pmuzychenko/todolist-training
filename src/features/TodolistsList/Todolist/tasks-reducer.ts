@@ -11,7 +11,7 @@ import {Dispatch} from 'redux';
 import {AppRootStateType} from "../../../app/store";
 import {addTodolistAC, getTodolistsAC, removeTodolistAC} from "./todolists-reducer";
 import {setAppStatusAC} from "../../../app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "../../../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 
 const initialState: TaskStateType = {}
@@ -90,7 +90,7 @@ export const SetTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => {
-            handleServerNetworkError(error,dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 
@@ -102,7 +102,7 @@ export const RemoveTaskTC = (todolistId: string, taskId: string) => (dispatch: D
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch(error => {
-            handleServerNetworkError(error,dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 
@@ -118,7 +118,7 @@ export const AddTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
             }
         })
         .catch(error => {
-            handleServerNetworkError(error,dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 
@@ -151,7 +151,7 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
             }
         })
         .catch(error => {
-            handleServerNetworkError(error,dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 

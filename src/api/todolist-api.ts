@@ -15,7 +15,7 @@ const instance = axios.create({
 
 //api
 export const todolistAPI = {
-    getTodolists(){
+    getTodolists() {
         return instance.get<Array<TodolistType>>('todo-lists')
     },
 
@@ -23,11 +23,11 @@ export const todolistAPI = {
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
     },
 
-    createTodolist(title: string){
-        return instance.post<ResponseType<{item: TodolistType}>>('todo-lists', {title})
+    createTodolist(title: string) {
+        return instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title})
     },
 
-    deleteTodolist(todolistId: string){
+    deleteTodolist(todolistId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
 
@@ -36,21 +36,39 @@ export const todolistAPI = {
     },
 
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
 
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
 
-    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType ) {
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
 }
 
+export const authAPI = {
+    login(userData: LoginParamsType) {
+        return instance.post<ResponseType<{ userId: number }>>('auth/login', userData)
+    },
+    me() {
+        return instance.get<ResponseType<{ id: number, email: string, login: string }>>('auth/me')
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+    }
+}
 
 //types
-export type TodolistType= {
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+export type TodolistType = {
     id: string
     addedDate: string
     order: number
@@ -70,6 +88,7 @@ export enum TaskStatuses {
     Completed = 2,
     Draft = 3
 }
+
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -77,6 +96,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+
 export enum ResponseFromServer {
     Success = 0,
     Error = 1

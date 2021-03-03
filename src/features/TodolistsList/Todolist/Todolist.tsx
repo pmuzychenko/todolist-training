@@ -8,7 +8,7 @@ import {FilterValuesType} from "./todolists-reducer";
 import {TaskStatuses, TaskType} from "../../../api/todolist-api";
 import {useDispatch} from "react-redux";
 import {SetTasksTC} from "./tasks-reducer";
-import { RequestStatusType } from '../../../app/app-reducer';
+import {RequestStatusType} from '../../../app/app-reducer';
 
 type PropsType = {
     title: string
@@ -29,7 +29,7 @@ type PropsType = {
 export const Todolist: React.FC<PropsType> = React.memo(function (
     {
         id, title, entityStatus, tasks, changeTaskStatus, removeTask, changeFilterForTask, _addNewTask, filter,
-        _removeTodolist, onChangeTaskTitle, _onChangeTodolistTitle,demo = false
+        _removeTodolist, onChangeTaskTitle, _onChangeTodolistTitle, demo = false
     }
 ) {
     const dispatch = useDispatch()
@@ -79,13 +79,13 @@ export const Todolist: React.FC<PropsType> = React.memo(function (
             <div>
                 <h2><EditableSpan value={title}
                                   onChangeTitle={onChangeTodolistTitle}
-                                  disabled={entityStatus==='loading'}/>
-                    <IconButton onClick={removeTodolist} disabled={entityStatus==='loading'}>
+                                  disabled={entityStatus === 'loading'}/>
+                    <IconButton onClick={removeTodolist} disabled={entityStatus === 'loading'}>
                         <Delete/>
                     </IconButton>
                 </h2>
             </div>
-            <AddItemForm addItem={addNewTask} disabled={entityStatus==='loading'}/>
+            <AddItemForm addItem={addNewTask} disabled={entityStatus === 'loading'}/>
             <div>
                 {tasksForTodolist.map(task => <Task
                     key={task.id}

@@ -1,14 +1,24 @@
-import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from "@material-ui/core";
+import {
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
 import {TaskType} from "../api/todolist-api";
 import {TodolistsList} from "../features/TodolistsList/Todolist/TodolistsList";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
-import {RequestStatusType} from "./app-reducer";
+import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import React from "react";
+import React, {useEffect} from "react";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Login} from "../features/Login/Login";
+import {logoutTC} from "../features/Login/auth-reducer";
 
 
 export type TaskStateType = {
@@ -19,12 +29,33 @@ type PropsType = {
     demo?: boolean
 }
 
+
 function AppWithRedux({demo = false}: PropsType) {
-    const status = useSelector<AppRootStateType, RequestStatusType>( state => state.appStatus.status)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [])
+
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appStatus.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.appStatus.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
+
     return (
         <BrowserRouter>
             <div className="App">
-                <ErrorSnackbar />
+                <ErrorSnackbar/>
                 <AppBar position={'static'}>
                     <Toolbar>
                         <IconButton edge={'start'} color={'inherit'} aria-label={'menu'}>
@@ -33,9 +64,12 @@ function AppWithRedux({demo = false}: PropsType) {
                         <Typography variant={'h6'}>
                             News
                         </Typography>
-                        <Button color={'inherit'}>Login</Button>
+
+                        {isLoggedIn && <Button color={'inherit'}
+                                               onClick={logoutHandler}>Logout</Button>}
+
                     </Toolbar>
-                    {status === 'loading' && <LinearProgress color={'secondary'} />}
+                    {status === 'loading' && <LinearProgress color={'secondary'}/>}
                 </AppBar>
                 <Container fixed>
                     <Switch>
@@ -49,6 +83,5 @@ function AppWithRedux({demo = false}: PropsType) {
         </BrowserRouter>
     );
 }
-
 
 export default AppWithRedux;
