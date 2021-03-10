@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import './app/index.css';
 import reportWebVitals from './reportWebVitals';
 import AppWithRedux from './app/AppWithRedux';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
+import {Provider} from 'react-redux';
+import {store} from './app/store';
+import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Provider store={store}>
-          <AppWithRedux />
-      </Provider>
-
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <HashRouter>
+            <AppWithRedux/>
+        </HashRouter>
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -16,7 +16,7 @@ import {AppRootStateType} from "./store";
 import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import React, {useEffect} from "react";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {Login} from "../features/Login/Login";
 import {logoutTC} from "../features/Login/auth-reducer";
 
@@ -53,7 +53,6 @@ function AppWithRedux({demo = false}: PropsType) {
     }
 
     return (
-        <BrowserRouter>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position={'static'}>
@@ -75,12 +74,12 @@ function AppWithRedux({demo = false}: PropsType) {
                     <Switch>
                         <Route path={'/login'} render={() => <Login/>}/>
                         <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                        <Redirect from={'/todolist-training'} to={'/'}/>
                         <Route path={'/404'} render={() => <h1> 404: Page not found!</h1>}/>
                         <Redirect from={'*'} to={'/404'}/>
                     </Switch>
                 </Container>
             </div>
-        </BrowserRouter>
     );
 }
 
